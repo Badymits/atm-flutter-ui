@@ -330,23 +330,24 @@ class HomePage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       _QuickAction(
-                        icon: Icons.account_balance_wallet,
-                        label: 'Cash In',
-                        color: Colors.blue[700]!,
-                        onTap: () => _navigateTo(context, const CashInPage()),
+                        icon: Icons.account_balance,
+                        label: 'Deposit',
+                        color: const Color(0xFF81C784),
+                        onTap: () => _navigateTo(context, const DepositPage()),
                       ),
-                      _QuickAction(
-                        icon: Icons.send,
-                        label: 'Send Money',
-                        color: Colors.green[600]!,
-                        onTap: () =>
-                            _navigateTo(context, const SendMoneyPage()),
-                      ),
+
                       _QuickAction(
                         icon: Icons.receipt_long,
                         label: 'Pay Bills',
                         color: Colors.orange[700]!,
                         onTap: () => _navigateTo(context, const PayBillsPage()),
+                      ),
+
+                      _QuickAction(
+                        icon: Icons.attach_money,
+                        label: 'Withdraw',
+                        color: const Color(0xFFE57373),
+                        onTap: () => _navigateTo(context, const WithdrawPage()),
                       ),
                       _QuickAction(
                         icon: Icons.more_horiz,
@@ -395,10 +396,10 @@ class HomePage extends StatelessWidget {
                         onTap: () => _navigateTo(context, const ScanQRPage()),
                       ),
                       _ServiceIcon(
-                        icon: Icons.account_balance,
-                        label: 'Deposit',
-                        color: const Color(0xFF81C784),
-                        onTap: () => _navigateTo(context, const DepositPage()),
+                        icon: Icons.account_balance_wallet,
+                        label: 'Cash In',
+                        color: Colors.blue[700]!,
+                        onTap: () => _navigateTo(context, const CashInPage()),
                       ),
                       _ServiceIcon(
                         icon: Icons.shopping_cart,
@@ -407,10 +408,11 @@ class HomePage extends StatelessWidget {
                         onTap: () => _navigateTo(context, const ShopPage()),
                       ),
                       _ServiceIcon(
-                        icon: Icons.attach_money,
-                        label: 'Withdraw',
-                        color: const Color(0xFFE57373),
-                        onTap: () => _navigateTo(context, const WithdrawPage()),
+                        icon: Icons.send,
+                        label: 'Send Money',
+                        color: Colors.green[600]!,
+                        onTap: () =>
+                            _navigateTo(context, const SendMoneyPage()),
                       ),
                       _ServiceIcon(
                         icon: Icons.security,
