@@ -292,10 +292,10 @@ class HomePage extends StatelessWidget {
                                     _navigateTo(context, const BalancePage()),
                                 child: Wrap(
                                   children: [
-                                    Icon(Icons.add, color: Colors.white),
+                                    Icon(Icons.visibility, color: Colors.white),
                                     const SizedBox(width: 8),
                                     Text(
-                                      'Cash In',
+                                      'View Details',
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 16,
@@ -488,6 +488,17 @@ class HomePage extends StatelessWidget {
                       date: 'Jun 8',
                       onTap: () =>
                           _navigateTo(context, const TransactionDetailPage()),
+                    ),
+                    const Divider(height: 1),
+                    Text(
+                      'View All Transactions',
+                      style: TextStyle(
+                        color: Colors.blue[800],
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      textAlign: TextAlign.right,
+                      //onTap: () => _navigateTo(context, const TransactionDetailPage()),
                     ),
                   ],
                 ),
