@@ -2,24 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import 'package:atm_ui_activity_2/deposit.dart';
+import 'package:atm_ui_activity_2/globals.dart' as globals;
 
 void main() {
   runApp(const MyApp());
 }
 
-double balance = 35000.0;
-double savings = 25000.0; // Example balance
-
-final formattedBalance = NumberFormat.currency(
-  locale: 'en_PH',
-  symbol: '₱',
-).format(balance);
+String get formattedBalance =>
+    NumberFormat.currency(locale: 'en_PH', symbol: '₱').format(globals.balance);
 // Initial balance
 
-final formattedSavings = NumberFormat.currency(
-  locale: 'en_PH',
-  symbol: '₱',
-).format(savings);
+String get formattedSavings =>
+    NumberFormat.currency(locale: 'en_PH', symbol: '₱').format(globals.savings);
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -226,7 +220,11 @@ class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   void _navigateTo(BuildContext context, Widget page) {
-    Navigator.push(context, MaterialPageRoute(builder: (_) => page));
+    Navigator.push(context, MaterialPageRoute(builder: (_) => page)).then((_) {
+      if (context.mounted) {
+        (context as Element).markNeedsBuild(); // Rebuild the widget tree
+      }
+    });
   }
 
   @override
@@ -252,12 +250,12 @@ class HomePage extends StatelessWidget {
                 child: FractionallySizedBox(
                   widthFactor: 1, // 90% of the parent/screen width
                   child: DefaultTabController(
-                    length: 2, 
+                    length: 2,
                     child: Card(
                       color: Colors.blue,
                       elevation: 6,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18) 
+                        borderRadius: BorderRadius.circular(18),
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(16),
@@ -273,14 +271,17 @@ class HomePage extends StatelessWidget {
                                 Tab(text: 'Savings'),
                               ],
                             ),
-                              SizedBox(height: 20),
-                              SizedBox(height: 120,
+                            SizedBox(height: 20),
+                            SizedBox(
+                              height: 120,
                               child: TabBarView(
                                 children: [
                                   Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      Text('Available Balance',
+                                      Text(
+                                        'Available Balance',
                                         style: TextStyle(
                                           fontSize: 20,
                                           color: Colors.white70,
@@ -288,8 +289,10 @@ class HomePage extends StatelessWidget {
                                       ),
                                       SizedBox(height: 10),
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
                                         children: [
                                           Text(
                                             formattedBalance,
@@ -303,33 +306,46 @@ class HomePage extends StatelessWidget {
                                             style: ElevatedButton.styleFrom(
                                               backgroundColor: Colors.blue[600],
                                               shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.circular(12),
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
                                               ),
-                                              padding: const EdgeInsets.symmetric(
-                                                vertical: 12,
-                                                horizontal: 24,
-                                              ),
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                    vertical: 12,
+                                                    horizontal: 24,
+                                                  ),
                                             ),
 
-                                            onPressed: () => _navigateTo(context, const BalancePage()),
+                                            onPressed: () => _navigateTo(
+                                              context,
+                                              const BalancePage(),
+                                            ),
                                             child: Wrap(
                                               children: [
-                                                Icon(Icons.visibility, color: Colors.white),
+                                                Icon(
+                                                  Icons.visibility,
+                                                  color: Colors.white,
+                                                ),
                                                 SizedBox(width: 8),
-                                                Text('View Details',
-                                                  style: TextStyle(color: Colors.white),
+                                                Text(
+                                                  'View Details',
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                  ),
                                                 ),
                                               ],
-                                            )
-                                          )
+                                            ),
+                                          ),
                                         ],
-                                      )
+                                      ),
                                     ],
                                   ),
                                   Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      Text('Total Savings',
+                                      Text(
+                                        'Total Savings',
                                         style: TextStyle(
                                           fontSize: 20,
                                           color: Colors.white70,
@@ -345,17 +361,15 @@ class HomePage extends StatelessWidget {
                                         ),
                                       ),
                                     ],
-                                  )
-                                ] 
+                                  ),
+                                ],
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),
-                      
-                    ) 
+                    ),
                   ),
-                  
                 ),
               ),
             ),
