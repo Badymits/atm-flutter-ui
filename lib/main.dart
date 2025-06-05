@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import 'package:atm_ui_activity_2/deposit.dart';
+import 'package:atm_ui_activity_2/withdraw.dart';
 import 'package:atm_ui_activity_2/globals.dart' as globals;
 
 void main() {
@@ -407,7 +408,7 @@ class HomePage extends StatelessWidget {
                         icon: Icons.attach_money,
                         label: 'Withdraw',
                         color: const Color(0xFFE57373),
-                        onTap: () => _navigateTo(context, const WithdrawPage()),
+                        onTap: () => _navigateTo(context, WithdrawPage()),
                       ),
                       _QuickAction(
                         icon: Icons.more_horiz,
@@ -828,12 +829,6 @@ class ShopPage extends StatelessWidget {
   const ShopPage({super.key});
   @override
   Widget build(BuildContext context) => _SimplePage(title: 'Shop');
-}
-
-class WithdrawPage extends StatelessWidget {
-  const WithdrawPage({super.key});
-  @override
-  Widget build(BuildContext context) => _SimplePage(title: 'Withdraw');
 }
 
 class InsurancePage extends StatelessWidget {
