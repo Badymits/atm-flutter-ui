@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import 'package:atm_ui_activity_2/deposit.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -802,11 +804,11 @@ class ScanQRPage extends StatelessWidget {
   Widget build(BuildContext context) => _SimplePage(title: 'Scan QR');
 }
 
-class DepositPage extends StatelessWidget {
-  const DepositPage({super.key});
-  @override
-  Widget build(BuildContext context) => _SimplePage(title: 'Deposit');
-}
+// class DepositPage extends StatelessWidget {
+//   const DepositPage({super.key});
+//   @override
+//   Widget build(BuildContext context) => _SimplePage(title: 'Deposit');
+// }
 
 class ShopPage extends StatelessWidget {
   const ShopPage({super.key});
