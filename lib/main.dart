@@ -5,13 +5,19 @@ void main() {
   runApp(const MyApp());
 }
 
-double balance = 35000.0; // Example balance
+double balance = 35000.0;
+double savings = 25000.0; // Example balance
 
 final formattedBalance = NumberFormat.currency(
   locale: 'en_PH',
   symbol: '₱',
 ).format(balance);
 // Initial balance
+
+final formattedSavings = NumberFormat.currency(
+  locale: 'en_PH',
+  symbol: '₱',
+).format(savings);
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
