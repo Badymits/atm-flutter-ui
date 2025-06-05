@@ -337,7 +337,7 @@ class HomePage extends StatelessWidget {
                                       ),
                                       SizedBox(height: 8),
                                       Text(
-                                        formattedBalance, // Reusing the same balance for simplicity
+                                        formattedSavings, // Reusing the same balance for simplicity
                                         style: TextStyle(
                                           fontSize: 36,
                                           fontWeight: FontWeight.bold,
