@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.white,
         useMaterial3: true,
       ),
-      home: const LoginPage(),
+      home: const HomePage(),
     );
   }
 }
@@ -243,73 +243,111 @@ class HomePage extends StatelessWidget {
               child: Center(
                 child: FractionallySizedBox(
                   widthFactor: 1, // 90% of the parent/screen width
-                  child: Card(
-                    color: Colors.blue[800],
-                    elevation: 3,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 28,
-                        horizontal: 24,
+                  child: DefaultTabController(
+                    length: 2, 
+                    child: Card(
+                      color: Colors.blue,
+                      elevation: 6,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18) 
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Available Balance',
-                            style: TextStyle(
-                              color: Colors.white70,
-                              fontSize: 18,
+                      child: Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            TabBar(
+                              indicatorColor: Colors.white,
+                              labelColor: Colors.white,
+                              unselectedLabelColor: Colors.white70,
+                              tabs: const [
+                                Tab(text: 'Balance'),
+                                Tab(text: 'Savings'),
+                              ],
                             ),
-                          ),
-                          SizedBox(height: 10),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                formattedBalance,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 36,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.blue[600],
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: 12,
-                                    horizontal: 24,
-                                  ),
-                                ),
-                                onPressed: () =>
-                                    _navigateTo(context, const BalancePage()),
-                                child: Wrap(
-                                  children: [
-                                    Icon(Icons.visibility, color: Colors.white),
-                                    const SizedBox(width: 8),
-                                    Text(
-                                      'View Details',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16,
+                              SizedBox(height: 20),
+                              SizedBox(height: 120,
+                              child: TabBarView(
+                                children: [
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text('Available Balance',
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          color: Colors.white70,
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                ),
+                                      SizedBox(height: 10),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            formattedBalance,
+                                            style: TextStyle(
+                                              fontSize: 36,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                          ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor: Colors.blue[600],
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(12),
+                                              ),
+                                              padding: const EdgeInsets.symmetric(
+                                                vertical: 12,
+                                                horizontal: 24,
+                                              ),
+                                            ),
+
+                                            onPressed: () => _navigateTo(context, const BalancePage()),
+                                            child: Wrap(
+                                              children: [
+                                                Icon(Icons.visibility, color: Colors.white),
+                                                SizedBox(width: 8),
+                                                Text('View Details',
+                                                  style: TextStyle(color: Colors.white),
+                                                ),
+                                              ],
+                                            )
+                                          )
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text('Total Savings',
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          color: Colors.white70,
+                                        ),
+                                      ),
+                                      SizedBox(height: 8),
+                                      Text(
+                                        formattedBalance, // Reusing the same balance for simplicity
+                                        style: TextStyle(
+                                          fontSize: 36,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                ] 
                               ),
-                            ],
-                          ),
-                        ],
+                            )
+                          ],
+                        ),
                       ),
-                    ),
+                      
+                    ) 
                   ),
+                  
                 ),
               ),
             ),
