@@ -75,7 +75,13 @@ class _DepositPageState extends State<DepositPage>{
             TextField(
               controller: _amountController,
               keyboardType: TextInputType.number,
-              decoration: InputDecoration(labelText: "Enter amount")
+              decoration: InputDecoration(
+                labelText: "Enter amount",
+                contentPadding: const EdgeInsets.all(16.0),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(16.0),
+                ),
+              )
             )
           ],
         )
