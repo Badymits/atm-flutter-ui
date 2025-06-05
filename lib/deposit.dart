@@ -1,6 +1,7 @@
 // ignore: file_names
 import 'package:flutter/material.dart';
-import 'package:atm_ui_activity_2/main.dart';
+import 'package:atm_ui_activity_2/main.dart' as main;
+import 'package:atm_ui_activity_2/globals.dart' as globals;
 
 class DepositPage extends StatefulWidget {
   const DepositPage({super.key});
@@ -9,11 +10,40 @@ class DepositPage extends StatefulWidget {
   State<DepositPage> createState() => _DepositPageState();
 }
 
-class _DepositPageState extends State<DepositPage>{
-
+class _DepositPageState extends State<DepositPage> {
   final TextEditingController _amountController = TextEditingController();
 
-  String selectedAccount = 'Balance';
+  bool _isAmountConfirmed = false;
+
+  void addAmountToBalance(double amount) {
+    print("Adding $amount to balance");
+    globals.balance += amount;
+  }
+
+  void addAmountToSavings(double amount) {
+    globals.savings += amount;
+  }
+
+  void showDepositDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Deposit"),
+          content: Text(message),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close dialog
+                Navigator.pop(context);
+              },
+              child: const Text("OK"),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +79,8 @@ class _DepositPageState extends State<DepositPage>{
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Current Balance: ${selectedAccount == "Balance" ? formattedBalance : formattedSavings}",
+                        Text(
+                          "Current Balance: ${globals.selectedAccount == "Balance" ? main.formattedBalance : main.formattedSavings}",
                           style: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -59,18 +90,19 @@ class _DepositPageState extends State<DepositPage>{
                       ],
                     ),
                   ),
-                )   
-              )
+                ),
+              ),
             ),
             DropdownButton<String>(
-              value: selectedAccount,
-              items:['Balance', 'Savings'].map(( String value ) {
+              value: globals.selectedAccount,
+              items: ['Balance', 'Savings'].map((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
                   child: Text(value),
                 );
               }).toList(),
-              onChanged: (newValue) => setState(() => selectedAccount = newValue!),
+              onChanged: (newValue) =>
+                  setState(() => globals.selectedAccount = newValue!),
             ),
             TextField(
               controller: _amountController,
@@ -81,13 +113,48 @@ class _DepositPageState extends State<DepositPage>{
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(16.0),
                 ),
-              )
-            )
+              ),
+            ),
+
+            Row(
+              children: [
+                Checkbox(
+                  value: _isAmountConfirmed,
+                  onChanged: (bool? value) {
+                    setState(() {
+                      _isAmountConfirmed = value ?? false;
+                    });
+                  },
+                ),
+                const Text("The amount that I entered is correct"),
+              ],
+            ),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: _isAmountConfirmed
+                    ? () {
+                        // Deposit logic here
+                        if (globals.selectedAccount == "Balance") {
+                          addAmountToBalance(
+                            double.parse(_amountController.text),
+                          );
+                        } else if (globals.selectedAccount == "Savings") {
+                          addAmountToSavings(
+                            double.parse(_amountController.text),
+                          );
+                        }
+                        showDepositDialog("Deposit successful!");
+                        _amountController.clear();
+                        setState(() {});
+                      }
+                    : null,
+                child: const Text("Deposit"),
+              ),
+            ),
           ],
-        )
-       
+        ),
       ),
     );
   }
-
 }
