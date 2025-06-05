@@ -49,7 +49,7 @@ class _DepositPageState extends State<DepositPage>{
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Current Balance: $formattedBalance",
+                        Text("Current Balance: ${selectedAccount == "Balance" ? formattedBalance : formattedSavings}",
                           style: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
