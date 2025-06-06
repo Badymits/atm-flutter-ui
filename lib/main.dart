@@ -4,6 +4,8 @@ import 'package:intl/intl.dart';
 import 'package:atm_ui_activity_2/deposit.dart';
 import 'package:atm_ui_activity_2/withdraw.dart';
 import 'package:atm_ui_activity_2/globals.dart' as globals;
+import 'package:atm_ui_activity_2/pay_bills.dart';
+import 'package:atm_ui_activity_2/transfer_money.dart';
 
 void main() {
   runApp(const MyApp());
@@ -27,7 +29,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.white,
         useMaterial3: true,
       ),
-      home: const HomePage(),
+      home: const LoginPage(),
     );
   }
 }
@@ -401,7 +403,7 @@ class HomePage extends StatelessWidget {
                         icon: Icons.receipt_long,
                         label: 'Pay Bills',
                         color: Colors.orange[700]!,
-                        onTap: () => _navigateTo(context, const PayBillsPage()),
+                        onTap: () => _navigateTo(context, PayBillsPage()),
                       ),
 
                       _QuickAction(
@@ -470,10 +472,9 @@ class HomePage extends StatelessWidget {
                       ),
                       _ServiceIcon(
                         icon: Icons.send,
-                        label: 'Send Money',
+                        label: 'Transfer Money',
                         color: Colors.green[600]!,
-                        onTap: () =>
-                            _navigateTo(context, const SendMoneyPage()),
+                        onTap: () => _navigateTo(context, TransferMoneyPage()),
                       ),
                       _ServiceIcon(
                         icon: Icons.security,
@@ -494,77 +495,8 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ),
+
             // Recent Transactions
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Recent Transactions',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey[800],
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16.0,
-                vertical: 8,
-              ),
-              child: Card(
-                elevation: 1,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(14),
-                ),
-                child: Column(
-                  children: [
-                    _TransactionTile(
-                      icon: Icons.arrow_downward,
-                      label: 'Received from John',
-                      amount: '+₱2,000.00',
-                      color: Colors.green,
-                      date: 'Jun 10',
-                      onTap: () =>
-                          _navigateTo(context, const TransactionDetailPage()),
-                    ),
-                    const Divider(height: 1),
-                    _TransactionTile(
-                      icon: Icons.arrow_upward,
-                      label: 'Sent to Jane',
-                      amount: '-₱1,500.00',
-                      color: Colors.red,
-                      date: 'Jun 9',
-                      onTap: () =>
-                          _navigateTo(context, const TransactionDetailPage()),
-                    ),
-                    const Divider(height: 1),
-                    _TransactionTile(
-                      icon: Icons.receipt,
-                      label: 'Paid Electric Bill',
-                      amount: '-₱800.00',
-                      color: Colors.orange,
-                      date: 'Jun 8',
-                      onTap: () =>
-                          _navigateTo(context, const TransactionDetailPage()),
-                    ),
-                    const Divider(height: 1),
-                    Text(
-                      'View All Transactions',
-                      style: TextStyle(
-                        color: Colors.blue[800],
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                      ),
-                      textAlign: TextAlign.right,
-                      //onTap: () => _navigateTo(context, const TransactionDetailPage()),
-                    ),
-                  ],
-                ),
-              ),
-            ),
           ],
         ),
       ),
@@ -711,65 +643,6 @@ class _ServiceIconState extends State<_ServiceIcon> {
 }
 
 // Modified TransactionTile to support hover and tap
-class _TransactionTile extends StatefulWidget {
-  final IconData icon;
-  final String label;
-  final String amount;
-  final Color color;
-  final String date;
-  final VoidCallback? onTap;
-
-  const _TransactionTile({
-    required this.icon,
-    required this.label,
-    required this.amount,
-    required this.color,
-    required this.date,
-    this.onTap,
-  });
-
-  @override
-  State<_TransactionTile> createState() => _TransactionTileState();
-}
-
-class _TransactionTileState extends State<_TransactionTile> {
-  bool _hovering = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return MouseRegion(
-      onEnter: (_) => setState(() => _hovering = true),
-      onExit: (_) => setState(() => _hovering = false),
-      child: GestureDetector(
-        onTap: widget.onTap,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 120),
-          color: _hovering ? Colors.grey.withOpacity(0.08) : Colors.transparent,
-          child: ListTile(
-            leading: CircleAvatar(
-              backgroundColor: widget.color.withOpacity(0.15),
-              child: Icon(widget.icon, color: widget.color),
-            ),
-            title: Text(
-              widget.label,
-              style: const TextStyle(fontWeight: FontWeight.w500),
-            ),
-            subtitle: Text(widget.date),
-            trailing: Text(
-              widget.amount,
-              style: TextStyle(
-                color: widget.color,
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
 // Dummy pages for navigation
 class BalancePage extends StatelessWidget {
   const BalancePage({super.key});
@@ -787,12 +660,6 @@ class SendMoneyPage extends StatelessWidget {
   const SendMoneyPage({super.key});
   @override
   Widget build(BuildContext context) => _SimplePage(title: 'Send Money');
-}
-
-class PayBillsPage extends StatelessWidget {
-  const PayBillsPage({super.key});
-  @override
-  Widget build(BuildContext context) => _SimplePage(title: 'Pay Bills');
 }
 
 class MoreActionsPage extends StatelessWidget {
