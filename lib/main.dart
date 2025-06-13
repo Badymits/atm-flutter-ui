@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:atm_ui_activity_2/deposit.dart';
 import 'package:atm_ui_activity_2/withdraw.dart';
 import 'package:atm_ui_activity_2/globals.dart' as globals;
+import 'package:atm_ui_activity_2/drawer.dart';
 import 'package:atm_ui_activity_2/pay_bills.dart';
 import 'package:atm_ui_activity_2/transfer_money.dart';
 
@@ -244,6 +245,7 @@ class HomePage extends StatelessWidget {
         centerTitle: true,
         iconTheme: const IconThemeData(color: Colors.white),
       ),
+      drawer: const AppDrawer(),
       body: SingleChildScrollView(
         child: Column(
           children: [
